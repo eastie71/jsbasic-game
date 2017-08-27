@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>How many fingers?</title>
+	
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<style type="text/css">
+		
+		
+	</style>
+</head>
+<body>
+	<h1>Guess against the computer</h1>
+	<p>How many fingers do you think I am holding up?</p> 
+	<p>Enter your guess in the box below and click "<strong>Guess</strong>"</p>
+	<input id="fingersGuess" type="text"></input>
+	<button id="hitGuess">Guess!</button>
+	<hr>
+
+	<h1>Computer will guess from you</h1>
+	<p>Computer will guess how many fingers you are holding up. Enter the number of fingers (between 0 and 10) and then click "Guess"</p>
+	<select id="noFingers">
+		<option>0</option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+		<option>5</option>
+		<option>6</option>
+		<option>7</option>
+		<option>8</option>
+		<option>9</option>
+		<option>10</option>
+	</select>
+	<button id="computerGuess">Computer Guess!</button>
+	<div id="computerGuesses"></div>
+	<div id="results"></div>
+
+	<script type="text/javascript">
+		var noFingers = Math.floor(Math.random()*11);
+		var noGuesses = 0;
+		document.getElementById('hitGuess').onclick = function () {
+			
+			var fingersGuess = document.getElementById('fingersGuess').value;
+			
+			if (fingersGuess == noFingers) {
+				if (noGuesses == 0)
+					alert("You got it on your first guess!");
+				else
+					alert("You got it! You took " + noGuesses + " guesses.");
+				noGuesses = 0;
+				noFingers = Math.floor(Math.random()*11);
+			} else {
+				alert("Nope, try again...");
+				noGuesses++;
+			}
+		}
+
+		document.getElementById('computerGuess').onclick = function () {
+			// body...
+			var guess = -1;
+			var noGuesses = 0;
+			var noFingers = document.getElementById('noFingers').value;
+			var guessString = "";
+			var resultString = "Number of fingers = " + noFingers + "<br>";
+
+			if (noFingers > 10 || noFingers < 0) {
+				alert("Please enter a number between 0 and 5 and try again");
+			} else {
+
+				while (guess != noFingers) {
+					noGuesses++;
+					guess = Math.floor(Math.random()*11);
+					guessString += "Computer guess: " + guess + "<br>";
+				}
+				guessString += "Got it!<br>"
+				resultString += "Number of guesses = " + noGuesses;
+
+				document.getElementById('computerGuesses').innerHTML = guessString;
+				document.getElementById('results').innerHTML = resultString;
+			}
+		}
+
+
+	</script>
+
+</body> 
+</html>
